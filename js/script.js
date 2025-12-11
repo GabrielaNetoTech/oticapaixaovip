@@ -132,17 +132,7 @@ function initializeBrandCarousel() {
     })
   }
 
-  brandItems.forEach((item, index) => {
-    item.addEventListener("mouseenter", function () {
-      stopAutoplay()
-      this.style.transform = "translateY(-12px) scale(1.08)"
-    })
 
-    item.addEventListener("mouseleave", function () {
-      this.style.transform = "translateY(0) scale(1)"
-      startAutoplay()
-    })
-  })
 
   let touchStartX = 0
   let touchEndX = 0

@@ -228,8 +228,8 @@ body {
 /* Ícone compacto e elegante para links com ícones */
 .link-icon {
   flex-shrink: 0;
-  width: 40px;
-  height: 40px;
+  width: 55px;
+  height: 55px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -247,8 +247,8 @@ body {
 
 /* Foto quadrada com pontas arredondadas para atendentes - aumentada em tamanho */
 .link-icon-image {
-  width: 100px;
-  height: auto;
+  width: 50px;
+  height: 50px;
   border-radius: 12px;
   overflow: hidden;
   padding: 2px;
@@ -278,8 +278,8 @@ body {
 
 @media (max-width: 600px) {
   .link-icon-image {
-    width: 64px;
-    height: 64px;
+    width: 55px;
+    height: 55px;
     border-radius: 12px; /* se preferir cantos arredondados em mobile, ou use 50% para circular */
   }
 
@@ -291,8 +291,8 @@ body {
 /* Se quiser avatar maior em telas muito grandes */
 @media (min-width: 1200px) {
   .link-icon-image {
-    width: 88px;
-    height: 88px;
+    width: 55px;
+    height: 55px;
   }
 }
 
@@ -500,31 +500,6 @@ body {
   scroll-snap-align: center;
   transition: all 0.3s ease;
   padding: 10px;
-  cursor: pointer;
-}
-
-.brand-item::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, rgba(43, 108, 176, 0.15), rgba(58, 43, 122, 0.1));
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-}
-
-.brand-item:hover {
-  background: transparent;
-  border-color: transparent;
-  transform: translateY(-12px) scale(1.08);
-  box-shadow: 0 16px 40px rgba(43, 108, 176, 0.35);
-}
-
-.brand-item:hover::before {
-  opacity: 1;
 }
 
 .brand-item img {
@@ -553,13 +528,6 @@ body {
   .brand-item:hover img {
     border-color: rgba(255, 255, 255, 0.6);
   }
-}
-
-.brand-item:hover img {
-  transform: scale(1.1);
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
-  border-color: rgba(255, 255, 255, 0.65);
-  box-shadow: 0 8px 24px rgba(43, 108, 176, 0.18);
 }
 
 /* Botões de navegação mais transparentes e distantes */
@@ -758,28 +726,6 @@ body {
   font-size: 0.9rem;
   color: var(--gray-text);
   line-height: 1.6;
-}
-
-/* Layout lado a lado em telas maiores (a partir de tablet) */
-@media (min-width: 768px) {
-  .info-section {
-    padding: 36px 30px;
-  }
-
-  .info-container {
-    flex-direction: row;
-    align-items: stretch;
-    gap: 24px;
-  }
-
-  .info-map,
-  .info-details {
-    flex: 1;
-  }
-
-  .info-map iframe {
-    height: 260px;
-  }
 }
 
 /* Footer */
