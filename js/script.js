@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initializeLinkEffects()
   initializeScrollEffects()
   initializeProductCards()
+  initializeBrandCarousel()
 })
 
 function initializeLinkEffects() {
@@ -35,6 +36,16 @@ function initializeLinkEffects() {
 
     btn.addEventListener("mouseleave", function () {
       this.style.transform = "translateX(0)"
+    })
+
+    btn.addEventListener("click", function (e) {
+      const message = this.getAttribute("data-message")
+      if (message) {
+        e.preventDefault()
+        const whatsappNumber = "5587996521288"
+        const encodedMessage = encodeURIComponent(message)
+        window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, "_blank")
+      }
     })
   })
 }
@@ -60,6 +71,127 @@ function initializeProductCards() {
     card.addEventListener("mouseleave", function () {
       this.style.transform = "translateY(0)"
     })
+  })
+}
+
+function initializeBrandCarousel() {
+  const carousel = document.querySelector(".brands-carousel")
+  const leftBtn = document.querySelector(".carousel-nav-left")
+  const rightBtn = document.querySelector(".carousel-nav-right")
+  const brandItems = document.querySelectorAll(".brand-item")
+
+  if (!carousel) return
+
+  let autoplayInterval
+  let currentIndex = 0
+
+  function startAutoplay() {
+    autoplayInterval = setInterval(() => {
+      if (currentIndex < brandItems.length - 1) {
+        currentIndex++
+      } else {
+        currentIndex = 0
+      }
+      scrollToItem(currentIndex)
+    }, 2500)
+  }
+
+  function stopAutoplay() {
+    clearInterval(autoplayInterval)
+  }
+
+  function scrollToItem(index) {
+    const itemWidth = brandItems[0].offsetWidth + 20
+    carousel.scrollTo({
+      left: itemWidth * index,
+      behavior: "smooth",
+    })
+  }
+
+  if (leftBtn && rightBtn) {
+    leftBtn.addEventListener("click", () => {
+      stopAutoplay()
+      if (currentIndex > 0) {
+        currentIndex--
+      } else {
+        currentIndex = brandItems.length - 1
+      }
+      scrollToItem(currentIndex)
+      startAutoplay()
+    })
+
+    rightBtn.addEventListener("click", () => {
+      stopAutoplay()
+      if (currentIndex < brandItems.length - 1) {
+        currentIndex++
+      } else {
+        currentIndex = 0
+      }
+      scrollToItem(currentIndex)
+      startAutoplay()
+    })
+  }
+
+  brandItems.forEach((item, index) => {
+    item.addEventListener("mouseenter", function () {
+      stopAutoplay()
+      this.style.transform = "translateY(-12px) scale(1.08)"
+    })
+
+    item.addEventListener("mouseleave", function () {
+      this.style.transform = "translateY(0) scale(1)"
+      startAutoplay()
+    })
+  })
+
+  let touchStartX = 0
+  let touchEndX = 0
+
+  carousel.addEventListener(
+    "touchstart",
+    (e) => {
+      touchStartX = e.changedTouches[0].screenX
+      stopAutoplay()
+    },
+    false,
+  )
+
+  carousel.addEventListener(
+    "touchend",
+    (e) => {
+      touchEndX = e.changedTouches[0].screenX
+      handleSwipe()
+      startAutoplay()
+    },
+    false,
+  )
+
+  function handleSwipe() {
+    const threshold = 50
+    const diff = touchStartX - touchEndX
+
+    if (Math.abs(diff) > threshold) {
+      if (diff > 0) {
+        if (currentIndex < brandItems.length - 1) {
+          currentIndex++
+        } else {
+          currentIndex = 0
+        }
+      } else {
+        if (currentIndex > 0) {
+          currentIndex--
+        } else {
+          currentIndex = brandItems.length - 1
+        }
+      }
+      scrollToItem(currentIndex)
+    }
+  }
+
+  startAutoplay()
+
+  carousel.addEventListener("scroll", () => {
+    // Usuário está interagindo
   })
 }
 
